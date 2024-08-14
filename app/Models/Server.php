@@ -18,4 +18,9 @@ class Server extends Model
     {
         return $this->hasMany(Task::class);
     }
+
+    public function subscribers()
+    {
+        return $this->belongsToMany(User::class,'server_users');
+    }
 }
