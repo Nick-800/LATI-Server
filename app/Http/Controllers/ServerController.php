@@ -83,6 +83,24 @@ class ServerController extends Controller
         }
         return $code;
     }
-    
-    
+    public function search(Request $request,$code){
+        $server=Server::where('code','=',$code)->firstOrFail();
+
+        $subscribers=$server->subscribers()->where('user_id','=', auth()->id())->firstOrFail();
+        
+        $search= $request->search ?? null;
+        if ($search==null) {
+            $users=$subscribers->get();
+            return response()->json(['data'=>$users]);
+        }
+        if($search[0]=="0"){
+            $users=$subscribers->whereLike('phone',''.$search.'%',)->get();
+        return response()->json(['data'=>$users]);
+        }
+        else{
+            $users=$subscribers->where('user_id','=',$search)->firstOrFail();
+            return response()->json(['data'=>$users]);
+        }
+        
+    }
 }

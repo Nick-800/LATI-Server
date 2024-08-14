@@ -22,6 +22,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('servers/{code}', [ServerController::class, 'show']);
     Route::put('servers/{id}', [ServerController::class, 'update']);
     Route::delete('servers/{id}', [ServerController::class, 'destroy']);
+    Route::get('servers/{code}/users', [ServerController::class,'search']);
 
     Route::post('tasks', [TaskController::class, 'store']);
     Route::get('tasks', [TaskController::class, 'index']);
@@ -31,6 +32,6 @@ Route::middleware('auth:api')->group(function () {
 
     Route::post('servers/{code}/join', [SubscriptionController::class, 'store']);
     Route::delete('servers/{code}/leave',[SubscriptionController::class,'destroy']);
-    Route::get('servers/{code}/users',[SubscriptionController::class,'index']);
+   // Route::get('servers/{code}/users',[SubscriptionController::class,'index']);
 
 });
