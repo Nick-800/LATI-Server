@@ -33,11 +33,8 @@ Route::middleware('auth:api')->group(function () {
 
     Route::post('servers/{code}/join', [SubscriptionController::class, 'store']);
     Route::delete('servers/{code}/leave',[SubscriptionController::class,'destroy']);
-<<<<<<< HEAD
+
     Route::get('servers/{code}/users',[SubscriptionController::class,'index']);
-=======
-   // Route::get('servers/{code}/users',[SubscriptionController::class,'index']);
->>>>>>> e37be1f8ea21ddee2eacc70d4f9a735e6f2fa1e4
 
 });
 
