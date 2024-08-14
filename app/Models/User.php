@@ -61,7 +61,7 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(Server::class);
     }
 
-    public function subscription()
+    public function subscriptions()
     {
         return $this->belongsToMany(Server::class,'server_users');
     }

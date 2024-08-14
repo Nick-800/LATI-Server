@@ -7,5 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class ServerUser extends Model
 {
-    use HasFactory;
+//    protected $table = 'server_users';
+    protected $fillable = ['user_id'];
 }
