@@ -83,27 +83,24 @@ class ServerController extends Controller
         }
         return $code;
     }
-<<<<<<< HEAD
-=======
-    public function search(Request $request,$code){
-        $server=Server::where('code','=',$code)->firstOrFail();
+    public function search(Request $request, $code)
+{
+    $server = Server::where('code', $code)->firstOrFail();
+    $server->subscribers()->where('user_id', auth()->id())->firstOrFail();
 
-        $subscribers=$server->subscribers()->where('user_id','=', auth()->id())->firstOrFail();
-        
-        $search= $request->search ?? null;
-        if ($search==null) {
-            $users=$subscribers->get();
-            return response()->json(['data'=>$users]);
-        }
-        if($search[0]=="0"){
-            $users=$subscribers->whereLike('phone',''.$search.'%',)->get();
-        return response()->json(['data'=>$users]);
-        }
-        else{
-            $users=$subscribers->where('user_id','=',$search)->firstOrFail();
-            return response()->json(['data'=>$users]);
-        }
-        
+    $subscribersQuery = $server->subscribers();
+
+    $search = $request->search ?? null;
+    if ($search == null) {
+        $users = $subscribersQuery->get();
+        return response()->json(['data' => $users]);
     }
->>>>>>> e37be1f8ea21ddee2eacc70d4f9a735e6f2fa1e4
+    if ($search[0] == "0") {
+        $users = $subscribersQuery->where('phone', 'like', $search. '%')->get();
+        return response()->json(['data' => $users]);
+    } else {
+        $users = $subscribersQuery->where('user_id', '=', $search)->get();
+        return response()->json(['data' => $users]);
+    }
+}
 }
