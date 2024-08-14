@@ -15,7 +15,8 @@ Route::middleware('auth:api')->group(function () {
     Route::get('user', [UserController::class, 'user']);
     Route::post('refresh', [UserController::class, 'refresh']);
     Route::post('servers', [ServerController::class, 'store']);
-    Route::get('servers', [ServerController::class,'index']);
-    Route::get('servers/{id}', [ServerController::class,'show']);
-
+    Route::get('servers', [ServerController::class, 'index']);
+    Route::get('servers/{code}', [ServerController::class, 'show']);
+    Route::put('servers/{id}', [ServerController::class, 'update']);
+    Route::delete('servers/{id}', [ServerController::class, 'destroy']);
 });
