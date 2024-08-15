@@ -35,7 +35,7 @@ class UserController extends Controller
     public function login(Request $request)
     {
         $credentials = request(['phone', 'password']);
-        if (!$token = auth()->attempt($credentials)) {
+        if (!$token = auth("api")->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
         return response()->json([
@@ -47,7 +47,7 @@ class UserController extends Controller
 
     public function logout()
     {
-        auth('api')->logout(true);
+        auth("api")->logout(true);
 
         return response()->json(['data' => 'Successfully logged out']);
 
@@ -55,7 +55,7 @@ class UserController extends Controller
 
     public function user()
     {
-        $user = auth()->user();
+        $user = auth("api")->user();
 
         return response()->json([
             'data' => $user

@@ -34,7 +34,7 @@ Route::middleware('auth:api')->group(function () {
     Route::post('servers/{code}/join', [SubscriptionController::class, 'store']);
     Route::delete('servers/{code}/leave',[SubscriptionController::class,'destroy']);
 
-   // Route::get('servers/{code}/users',[SubscriptionController::class,'index']);
+    Route::get('servers/{code}/users/all',[SubscriptionController::class,'index']);
 
 });
 

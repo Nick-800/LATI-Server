@@ -34,7 +34,7 @@ class ServerController extends Controller
 
     public function index()
     {
-        $servers = Server::where('user_id', '=', auth()->id())->get();
+        $servers = Server::where('user_id', '=', auth("api")->id())->get();
         return response()->json([
             'data' => $servers
         ]);
@@ -42,7 +42,7 @@ class ServerController extends Controller
 
     public function show($code)
     {
-        $server = Server::where('user_id', auth()->id())
+        $server = Server::where('user_id', auth("api")->id())
             ->where('code', $code)
             ->firstOrFail();
         return response()->json([
@@ -56,7 +56,7 @@ class ServerController extends Controller
         $inputs = $request->validate([
             'name' => ['required', 'string'],
         ]);
-        $server = Server::where('user_id', auth()->id())->where('id', $id)->firstOrFail();
+        $server = Server::where('user_id', auth("api")->id())->where('id', $id)->firstOrFail();
         $server->update($inputs);
         return response()->json([
             'message' => 'server updated successfully'
@@ -65,7 +65,7 @@ class ServerController extends Controller
 
     public function destroy($id)
     {
-        $server = Server::where('user_id', auth()->id())
+        $server = Server::where('user_id', auth("api")->id())
             ->where('id', $id)
             ->firstOrFail();
         $server->delete();
@@ -86,7 +86,7 @@ class ServerController extends Controller
     public function search(Request $request, $code)
 {
     $server = Server::where('code', $code)->firstOrFail();
-    $server->subscribers()->where('user_id', auth()->id())->firstOrFail();
+    $server->subscribers()->where('user_id', auth("api")->id())->firstOrFail();
 
     $subscribersQuery = $server->subscribers();
 
