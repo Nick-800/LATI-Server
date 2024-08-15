@@ -29,7 +29,7 @@ class TaskController extends Controller
 
     public function index()
     {
-        $tasks = auth()->user()->servers()
+        $tasks = auth("api")->user()->servers()
             ->firstOrFail()->tasks()->get();
 
         return response()->json([
@@ -42,7 +42,7 @@ class TaskController extends Controller
 //        $task = Task::where('id', '=', $id)
 //            ->where('server_id', '=', auth()->user()->servers()->firstOrFail()->id)
 //            ->firstOrFail();
-        $task = auth()->user()
+        $task = auth("api")->user()
             ->servers()->firstOrFail()
             ->tasks()->findOrFail($id);
         return response()->json(['data' => $task]);
@@ -58,7 +58,7 @@ class TaskController extends Controller
             'status' => ['string', 'in:Not-Started,In-Progress,Completed,Cancelled']
         ]);
 
-        $task = auth()->user()
+        $task = auth("api")->user()
             ->servers()->firstOrFail()
             ->tasks()->findOrFail($id);
 
@@ -71,7 +71,7 @@ class TaskController extends Controller
 
     public function destroy($id)
     {
-        $task = auth()->user()
+        $task = auth("api")->user()
             ->servers()->firstOrFail()
             ->tasks()->findOrFail($id);
 
